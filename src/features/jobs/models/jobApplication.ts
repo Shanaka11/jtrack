@@ -17,8 +17,6 @@ const jobApplicationStatusArray = [
 	'Application Rejected',
 ] as const;
 
-export type JobApplicationStatus = (typeof jobApplicationStatusArray)[number];
-
 export const jobApplicationTable = pgTable('job_application', {
 	id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
 	jobTitle: varchar('job_title', { length: 30 }).notNull(),
@@ -33,9 +31,6 @@ export const jobApplicationTable = pgTable('job_application', {
 	updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });
 
-export type InsertJobApplicationDto = typeof jobApplicationTable.$inferInsert;
-export type JobApplicationDto = typeof jobApplicationTable.$inferSelect;
-
 export const jobApplicationFormSchema = z.object({
 	jobTitle: z
 		.string({ required_error: 'Job title cannot be empty' })
@@ -47,3 +42,7 @@ export const jobApplicationFormSchema = z.object({
 		.min(1, { message: 'Company name cannot be empty' }),
 	link: z.string().optional(),
 });
+
+export type InsertJobApplicationDto = typeof jobApplicationTable.$inferInsert;
+export type JobApplicationDto = typeof jobApplicationTable.$inferSelect;
+export type JobApplicationStatus = (typeof jobApplicationStatusArray)[number];

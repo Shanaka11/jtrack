@@ -8,6 +8,13 @@
       "when": 1741304845513,
       "tag": "0000_late_greymalkin",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1741308660517,
+      "tag": "0001_whole_lord_hawal",
+      "breakpoints": true
     }
   ]
 }
