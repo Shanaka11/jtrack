@@ -1,22 +1,14 @@
-import PageHeader from '@/components/common/PageHeader';
+import { Card, CardContent } from '@/components/ui/card';
 import NewJobApplicationForm from '@/features/jobs/components/jobApplication/NewJobApplicationForm';
 import React from 'react';
 
-const breadCrumbs = [
-	{ label: 'Dashboard', href: '/dashboard' },
-	{ label: 'Application', href: '/applications' },
-	{ label: 'New Applications', active: true },
-];
-
 const page = () => {
 	return (
-		<div className='flex flex-col'>
-			{/* Header */}
-			<PageHeader title='New Application' breadCrumbs={breadCrumbs} />
-			<div className='mt-4 grid place-items-center md:place-items-start'>
-				<NewJobApplicationForm />
-			</div>
-		</div>
+		<Card>
+			<CardContent>
+				<NewJobApplicationForm redirectOnSuccess={true} />
+			</CardContent>
+		</Card>
 	);
 };
 
