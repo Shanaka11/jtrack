@@ -40,9 +40,13 @@ export const jobApplicationFormSchema = z.object({
 		.string({ required_error: 'Company cannot be empty' })
 		.max(50, { message: 'Company cannot have more than 50 characters' })
 		.min(1, { message: 'Company name cannot be empty' }),
-	link: z.string().optional(),
+	link: z.union([
+		z.literal(''),
+		z.string().trim().url({ message: 'Please enter a valid url' }),
+	]),
 });
 
+export type JobApplicationFormSchema = z.infer<typeof jobApplicationFormSchema>;
 export type InsertJobApplicationDto = typeof jobApplicationTable.$inferInsert;
 export type JobApplicationDto = typeof jobApplicationTable.$inferSelect;
 export type JobApplicationStatus = (typeof jobApplicationStatusArray)[number];

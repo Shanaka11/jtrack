@@ -1,10 +1,12 @@
 'use server';
 
-import { InsertJobApplicationDto } from '../../models/jobApplication';
+import { getCurrentUserServer } from '@/features/auth/getCurrentUserServer';
+import { JobApplicationFormSchema } from '../../models/jobApplication';
 import { createJobApplicationUseCase } from '../../useCases/jobApplication/public/CRUD';
 
 export const createJobApplicationAction = async (
-	jobApplication: InsertJobApplicationDto
+	jobApplication: JobApplicationFormSchema
 ) => {
-	return await createJobApplicationUseCase(jobApplication);
+	const userId = await getCurrentUserServer();
+	return await createJobApplicationUseCase(jobApplication, userId);
 };

@@ -3,12 +3,14 @@ import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import React, { Fragment } from 'react';
 
+export type BreadCrumb = {
+	label: string;
+	href?: string;
+	active?: boolean;
+};
+
 type BreadCrumbsProps = {
-	links: {
-		label: string;
-		href?: string;
-		active?: boolean;
-	}[];
+	links: BreadCrumb[];
 };
 
 const BreadCrumbs = ({ links }: BreadCrumbsProps) => {

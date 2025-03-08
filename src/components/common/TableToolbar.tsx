@@ -1,12 +1,10 @@
-'use client';
 import React from 'react';
 import { Button } from '../ui/button';
 import FTooltip from './FTooltip';
 import { Edit, Plus, RefreshCcw, Trash2 } from 'lucide-react';
+import Link from 'next/link';
 
 type TableToolbarProps = {
-	handleInsert?: () => void;
-	disableInsert?: boolean;
 	handleDelete?: () => void;
 	disableDelete?: boolean;
 	handleEdit?: () => void;
@@ -16,8 +14,6 @@ type TableToolbarProps = {
 };
 
 const TableToolbar = ({
-	handleInsert,
-	disableInsert,
 	handleDelete,
 	disableDelete,
 	handleEdit,
@@ -28,20 +24,19 @@ const TableToolbar = ({
 	if (
 		handleDelete === undefined &&
 		handleEdit === undefined &&
-		handleRefresh === undefined &&
-		handleInsert === undefined
+		handleRefresh === undefined
 	)
 		return null;
 
 	return (
 		<div className='flex gap-1'>
-			{handleInsert && (
-				<FTooltip text='Insert'>
-					<Button size='icon' disabled={disableInsert}>
+			<FTooltip text='Insert'>
+				<Link href='/application/new'>
+					<Button size='icon' className='cursor-pointer'>
 						<Plus />
 					</Button>
-				</FTooltip>
-			)}
+				</Link>
+			</FTooltip>
 			{handleEdit && (
 				<FTooltip text='Edit'>
 					<Button size='icon' disabled={disableEdit}>

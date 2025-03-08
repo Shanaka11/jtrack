@@ -1,19 +1,18 @@
 import PageHeader from '@/components/common/PageHeader';
-import JobApplicationTable from '@/features/jobs/components/jobApplication/table/JobApplicationTable';
 import React from 'react';
 
 const breadCrumbs = [
 	{ label: 'Dashboard', href: '/dashboard' },
-	{ label: 'Applications', active: true },
+	{ label: 'Application', href: '/applications' },
+	{ label: 'New Applications', active: true },
 ];
 
 const page = () => {
 	return (
 		<div className='flex flex-col'>
 			{/* Header */}
-			<PageHeader title='Applications' breadCrumbs={breadCrumbs} />
-			{/* Table */}
-			<JobApplicationTable className='mt-4' />
+			<PageHeader title='New Application' breadCrumbs={breadCrumbs} />
+			<p>Selected stuff</p>
 		</div>
 	);
 };
