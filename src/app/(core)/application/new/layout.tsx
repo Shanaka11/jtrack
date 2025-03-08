@@ -19,7 +19,6 @@ const layout = ({
 			<PageHeader title='New Application' breadCrumbs={breadCrumbs} />
 			<ActionArea>{children}</ActionArea>
 		</div>
-		// <div>{children}</div>
 	);
 };
 

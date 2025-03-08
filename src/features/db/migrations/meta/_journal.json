@@ -15,6 +15,13 @@
       "when": 1741308660517,
       "tag": "0001_whole_lord_hawal",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1741434464150,
+      "tag": "0002_past_talisman",
+      "breakpoints": true
     }
   ]
 }

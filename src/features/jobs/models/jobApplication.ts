@@ -1,4 +1,5 @@
 import {
+	boolean,
 	integer,
 	pgTable,
 	text,
@@ -27,6 +28,8 @@ export const jobApplicationTable = pgTable('job_application', {
 		enum: jobApplicationStatusArray,
 	}).notNull(),
 	link: text('link'),
+	dateApplied: timestamp('date_applied').notNull().defaultNow(),
+	favorite: boolean('favorite').notNull().default(false),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });
@@ -44,6 +47,7 @@ export const jobApplicationFormSchema = z.object({
 		z.literal(''),
 		z.string().trim().url({ message: 'Please enter a valid url' }),
 	]),
+	dateApplied: z.date({ required_error: 'Date applied cannot be empty' }),
 });
 
 export type JobApplicationFormSchema = z.infer<typeof jobApplicationFormSchema>;

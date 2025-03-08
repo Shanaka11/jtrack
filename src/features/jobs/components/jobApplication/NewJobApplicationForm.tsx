@@ -21,6 +21,7 @@ import { toast } from 'sonner';
 import { createJobApplicationAction } from '../../actions/jobApplication/createJobApplicationAction';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import FormDatePicker from '@/components/common/FormDatePicker';
 
 type NewJobApplicationFormProps = {
 	redirectOnSuccess?: boolean;
@@ -37,6 +38,7 @@ const NewJobApplicationForm = ({
 			company: '',
 			jobTitle: '',
 			link: '',
+			dateApplied: new Date(),
 		},
 	});
 
@@ -107,15 +109,26 @@ const NewJobApplicationForm = ({
 				/>
 				<FormField
 					control={form.control}
+					name='dateApplied'
+					render={({ field }) => (
+						<FormItem className='flex flex-col col-span-2 md:col-span-1'>
+							<FormLabel>Date of birth</FormLabel>
+							<FormDatePicker value={field.value} onChange={field.onChange} />
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
 					name='link'
 					render={({ field }) => (
-						<FormItem className='col-span-2'>
+						<FormItem className='col-span-2 md:col-span-1'>
 							<FormLabel>Link</FormLabel>
 							<FormControl>
 								<Input placeholder='https://' {...field} />
 							</FormControl>
 							<FormDescription>
-								Add a link to the job application. (Optional)
+								Add a link to the job application.
 							</FormDescription>
 							<FormMessage />
 						</FormItem>

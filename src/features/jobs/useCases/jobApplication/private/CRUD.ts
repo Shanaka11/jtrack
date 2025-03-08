@@ -20,6 +20,7 @@ export const createJobApplicationUseCase_ = async (
 		...clearedJobApplication,
 		status: 'Submitted',
 		user: userId,
+		favorite: false,
 		createdAt: currDate,
 		updatedAt: currDate,
 	};
