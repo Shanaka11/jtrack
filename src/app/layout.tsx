@@ -29,7 +29,7 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[48px_1fr] h-dvh`}
 			>
 				<Appbar />
-				<div className='px-4 h-full'>{children}</div>
+				<main className='px-4 h-full'>{children}</main>
 			</body>
 		</html>
 	);
