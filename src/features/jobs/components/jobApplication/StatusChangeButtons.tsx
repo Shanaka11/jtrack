@@ -19,6 +19,7 @@ import { updateJobApplicationStatusAction } from '../../actions/jobApplication/u
 import { JobApplicationDto } from '../../models/jobApplication';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { AnimatePresence, motion } from 'motion/react';
 
 type StatusChangeButtonsServerProps = {
 	jobApplication: JobApplicationDto;
@@ -118,33 +119,41 @@ const StatusChangeButtons = ({
 	};
 
 	return (
-		<>
-			<div className='flex gap-2'>
+		<AnimatePresence>
+			<div className='flex gap-2' key='Prev'>
 				{Object.keys(previous).map((item) => {
 					// if(item === 'New Application'){
 					return (
-						<FTooltip key={item} text={getTooltipText(item, false)}>
-							<Button
-								size='icon'
-								className='cursor-pointer'
-								onClick={() => handleStatusChange(item, false)}
-								disabled={isLoading}
+						<FTooltip key={`Prev-${item}`} text={getTooltipText(item, false)}>
+							<motion.div
+								initial={{ opacity: 0, scale: 0 }}
+								animate={{ opacity: 1, scale: 1 }}
+								exit={{ opacity: 0, scale: 0 }}
+								key={`Prev-${item}`}
 							>
-								<ChangeStatusIcon event={item} />
-							</Button>
+								<Button
+									size='icon'
+									className='cursor-pointer'
+									onClick={() => handleStatusChange(item, false)}
+									disabled={isLoading}
+								>
+									<ChangeStatusIcon event={item} />
+								</Button>
+							</motion.div>
 						</FTooltip>
 					);
 				})}
 			</div>
-			<div className='flex gap-2'>
+			<div className='flex gap-2' key='Next'>
 				{Object.keys(next).map((item) => {
 					return (
-						<FTooltip key={item} text={getTooltipText(item, true)}>
+						<FTooltip key={`Next-${item}`} text={getTooltipText(item, true)}>
 							<Button
 								size='icon'
 								className='cursor-pointer'
 								disabled={isLoading}
 								onClick={() => handleStatusChange(item, true)}
+								key={`Next-${item}`}
 							>
 								<ChangeStatusIcon event={item} />
 							</Button>
@@ -152,7 +161,7 @@ const StatusChangeButtons = ({
 					);
 				})}
 			</div>
-		</>
+		</AnimatePresence>
 	);
 };
 

@@ -4,10 +4,10 @@ export const jobApplicationStatusArray = [
 	'Submitted',
 	'Screening Done',
 	'Interviewing',
-	'Offer Made',
-	'Offer Accepted',
-	'Offer Rejected',
 	'Application Rejected',
+	'Offer Made',
+	'Offer Rejected',
+	'Offer Accepted',
 ] as const;
 
 export const JobApplicationStatusEventsArray = [
