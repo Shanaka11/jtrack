@@ -7,16 +7,7 @@ import {
 	varchar,
 } from 'drizzle-orm/pg-core';
 import { z } from 'zod';
-
-const jobApplicationStatusArray = [
-	'Submitted',
-	'Screening Done',
-	'Interviewing',
-	'Offer Made',
-	'Offer Accepted',
-	'Offer Rejected',
-	'Application Rejected',
-] as const;
+import { jobApplicationStatusArray } from '../statemachines/jobApplicationStatusStateMachine';
 
 export const jobApplicationTable = pgTable('job_application', {
 	id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
@@ -53,4 +44,3 @@ export const jobApplicationFormSchema = z.object({
 export type JobApplicationFormSchema = z.infer<typeof jobApplicationFormSchema>;
 export type InsertJobApplicationDto = typeof jobApplicationTable.$inferInsert;
 export type JobApplicationDto = typeof jobApplicationTable.$inferSelect;
-export type JobApplicationStatus = (typeof jobApplicationStatusArray)[number];

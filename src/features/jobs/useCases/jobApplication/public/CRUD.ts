@@ -1,5 +1,8 @@
 import { db } from '@/features/db/drizzle';
-import { createJobApplicationUseCase_ } from '../private/CRUD';
+import {
+	createJobApplicationUseCase_,
+	getJobApplicationByIdUseCase_,
+} from '../private/CRUD';
 import {
 	JobApplicationDto,
 	JobApplicationFormSchema,
@@ -15,6 +18,25 @@ export const createJobApplicationUseCase = async (
 			return createJobApplicationUseCase_(jobApplication, userId, tx);
 		});
 
+		return sendSuccessResponse<JobApplicationDto>(createdApplication[0]);
+	} catch (e: unknown) {
+		if (e instanceof Error) {
+			return sendErrorResponse<JobApplicationDto>(e.message);
+		}
+		return sendErrorResponse<JobApplicationDto>('An error occurred');
+	}
+};
+
+export const getJobApplicationByIdUseCase = async (
+	id: JobApplicationDto['id'],
+	userId: JobApplicationDto['user'] | null
+) => {
+	try {
+		const createdApplication = await getJobApplicationByIdUseCase_(
+			id,
+			userId,
+			db
+		);
 		return sendSuccessResponse<JobApplicationDto>(createdApplication[0]);
 	} catch (e: unknown) {
 		if (e instanceof Error) {

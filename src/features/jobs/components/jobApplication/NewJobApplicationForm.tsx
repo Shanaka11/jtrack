@@ -69,7 +69,6 @@ const NewJobApplicationForm = ({
 			if (e instanceof Error) {
 				console.error(e.message);
 			}
-			console.error('There was an error');
 		} finally {
 			setIsLoading(false);
 		}
