@@ -1,6 +1,7 @@
 import { db } from '@/features/db/drizzle';
 import {
 	createJobApplicationUseCase_,
+	deleteJobApplicationUseCase_,
 	getJobApplicationByIdUseCase_,
 } from '../private/CRUD';
 import {
@@ -38,6 +39,25 @@ export const getJobApplicationByIdUseCase = async (
 			db
 		);
 		return sendSuccessResponse<JobApplicationDto>(createdApplication[0]);
+	} catch (e: unknown) {
+		if (e instanceof Error) {
+			return sendErrorResponse<JobApplicationDto>(e.message);
+		}
+		return sendErrorResponse<JobApplicationDto>('An error occurred');
+	}
+};
+
+export const deleteJobApplicationUseCase = async (
+	jobApplication: JobApplicationDto,
+	userId: JobApplicationDto['user'] | null
+) => {
+	try {
+		const response = await deleteJobApplicationUseCase_(
+			jobApplication,
+			userId,
+			db
+		);
+		return sendSuccessResponse<JobApplicationDto>(response[0]);
 	} catch (e: unknown) {
 		if (e instanceof Error) {
 			return sendErrorResponse<JobApplicationDto>(e.message);

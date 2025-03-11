@@ -14,8 +14,9 @@ import React from 'react';
 import StatusChangeButtonsServer from '@/features/jobs/components/jobApplication/StatusChangeButtons';
 import FavoriteButton from '@/features/jobs/components/jobApplication/FavoriteButton';
 import Link from 'next/link';
-import { Edit3Icon, ExternalLink, Trash2 } from 'lucide-react';
+import { Edit3Icon, ExternalLink } from 'lucide-react';
 import FTooltip from '@/components/common/FTooltip';
+import DeleteJobApplicationButton from '@/features/jobs/components/jobApplication/DeleteJobApplicationButton';
 
 const breadCrumbs = [
 	{ label: 'Dashboard', href: '/dashboard' },
@@ -67,12 +68,9 @@ const page = async ({
 							className='hover:scale-120 transition-all duration-300 cursor-pointer stroke-blue-400'
 						></Edit3Icon>
 					</FTooltip>
-					<FTooltip text='Delete Application'>
-						<Trash2
-							strokeWidth={1}
-							className='hover:scale-120 transition-all duration-300 cursor-pointer stroke-red-500'
-						/>
-					</FTooltip>
+					<DeleteJobApplicationButton
+						jobApplication={jobApplicationResponse.data}
+					/>
 				</div>
 			</PageHeader>
 			<ActionArea>
@@ -94,7 +92,7 @@ const page = async ({
 										Applied on
 									</span>
 									<span>
-										{format(jobApplicationResponse.data.createdAt, 'PPP')}
+										{format(jobApplicationResponse.data.dateApplied, 'PPP')}
 									</span>
 								</div>
 							</div>

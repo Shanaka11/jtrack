@@ -6,6 +6,7 @@ import {
 } from '@/features/jobs/models/jobApplication';
 import {
 	createJobApplicationService,
+	deleteJobApplicationService,
 	getJobApplicationsService,
 	updateJobApplicationService,
 } from '@/features/jobs/services/jobApplication/CRUD';
@@ -77,4 +78,23 @@ export const updateJobApplicationUseCase_ = async (
 	// Update the updatedAt field
 	jobApplication.updatedAt = new Date();
 	return await updateJobApplicationService(jobApplication, connection);
+};
+
+export const deleteJobApplicationUseCase_ = async (
+	jobApplication: JobApplicationDto,
+	userId: JobApplicationDto['user'] | null,
+	connection: PostgresJsDatabase<Record<string, never>>
+) => {
+	if (userId === null) throw new Error('User not found');
+	if (jobApplication.user !== userId)
+		throw new Error('The user does not own this record, cannot delete.');
+	const oldrec = await getJobApplicationByIdUseCase_(
+		jobApplication.id,
+		userId,
+		connection
+	);
+	if (oldrec[0].updatedAt.getTime !== jobApplication.updatedAt.getTime) {
+		throw new Error('Record is updated by someone else');
+	}
+	return await deleteJobApplicationService(jobApplication.id, connection);
 };

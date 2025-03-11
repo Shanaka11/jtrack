@@ -53,3 +53,13 @@ export const updateJobApplicationService = async (
 		.where(eq(jobApplicationTable.id, jobApplication.id))
 		.returning();
 };
+
+export const deleteJobApplicationService = async (
+	jobApplicationId: JobApplicationDto['id'],
+	connection: PostgresJsDatabase<Record<string, never>>
+) => {
+	return await connection
+		.delete(jobApplicationTable)
+		.where(eq(jobApplicationTable.id, jobApplicationId))
+		.returning();
+};
