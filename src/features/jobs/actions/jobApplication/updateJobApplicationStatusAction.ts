@@ -1,7 +1,7 @@
 'use server';
 
 import { getCurrentUserServer } from '@/features/auth/getCurrentUserServer';
-import { updateJobApplicationStatusUseCase } from '../../useCases/jobApplication/public/updateJobApplicationStatus';
+import { updateJobApplicationStatusUseCase } from '../../useCases/jobApplication/public/updateJobApplicationStatusUserCase';
 import { JobApplicationDto } from '../../models/jobApplication';
 import { JobApplicationStatusEvents } from '../../statemachines/jobApplicationStatusStateMachine';
 

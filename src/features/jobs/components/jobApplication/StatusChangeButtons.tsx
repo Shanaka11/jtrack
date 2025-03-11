@@ -105,6 +105,7 @@ const StatusChangeButtons = ({
 				toast.error(response.message);
 				return;
 			}
+			toast.success('Status updated successfully');
 			// refresh the page
 			router.refresh();
 		} catch (e: unknown) {

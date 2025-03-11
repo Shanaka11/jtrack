@@ -13,7 +13,7 @@ const StatusProgress = ({ status }: StatusProgressProps) => {
 	const step = jobApplicationStatusArray.indexOf(status);
 
 	return (
-		<div className='text-center md:px-5 mb-14'>
+		<div className='text-center md:px-5 md:mb-14'>
 			<div className='flex justify-between my-1 w-full relative before:content[""] before:absolute before:bg-muted before:h-1 before:w-full before:top-1/2 before:left-0 before:z-10 before:-translate-y-1/2'>
 				<div
 					className='bg-primary absolute top-1/2 -translate-y-1/2 h-1 z-10 transition-all duration-800'

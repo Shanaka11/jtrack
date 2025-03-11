@@ -12,6 +12,10 @@ import { getUserJobApplicationByIdAction } from '@/features/jobs/actions/jobAppl
 import { format } from 'date-fns';
 import React from 'react';
 import StatusChangeButtonsServer from '@/features/jobs/components/jobApplication/StatusChangeButtons';
+import FavoriteButton from '@/features/jobs/components/jobApplication/FavoriteButton';
+import Link from 'next/link';
+import { Edit3Icon, ExternalLink, Trash2 } from 'lucide-react';
+import FTooltip from '@/components/common/FTooltip';
 
 const breadCrumbs = [
 	{ label: 'Dashboard', href: '/dashboard' },
@@ -40,7 +44,37 @@ const page = async ({
 					...breadCrumbs,
 					{ label: application_id.toString(), active: true },
 				]}
-			/>
+			>
+				<div className='flex gap-2 items-center'>
+					<FavoriteButton jobApplication={jobApplicationResponse.data} />
+					{jobApplicationResponse.data.link && (
+						<FTooltip text='View Job Posting'>
+							<Link
+								href={jobApplicationResponse.data.link}
+								target='_blank'
+								rel='noreferrer noopenner'
+							>
+								<ExternalLink
+									strokeWidth={1}
+									className='hover:scale-120 transition-all duration-300 cursor-pointer'
+								/>
+							</Link>
+						</FTooltip>
+					)}
+					<FTooltip text='Edit Application'>
+						<Edit3Icon
+							strokeWidth={1}
+							className='hover:scale-120 transition-all duration-300 cursor-pointer stroke-blue-400'
+						></Edit3Icon>
+					</FTooltip>
+					<FTooltip text='Delete Application'>
+						<Trash2
+							strokeWidth={1}
+							className='hover:scale-120 transition-all duration-300 cursor-pointer stroke-red-500'
+						/>
+					</FTooltip>
+				</div>
+			</PageHeader>
 			<ActionArea>
 				<div className='flex flex-col gap-2'>
 					<Card className='sm:w-xl md:w-3xl'>
