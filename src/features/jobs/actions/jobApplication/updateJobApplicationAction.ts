@@ -1,12 +1,11 @@
 'use server';
-
 import { getCurrentUserServer } from '@/features/auth/getCurrentUserServer';
 import { JobApplicationDto } from '../../models/jobApplication';
-import { deleteJobApplicationUseCase } from '../../useCases/jobApplication/public/CRUD';
+import { updateJobApplicationUseCase } from '../../useCases/jobApplication/public/CRUD';
 
-export const deleteJobApplicationAction = async (
+export const updateJobApplicationAction = async (
 	jobApplication: JobApplicationDto
 ) => {
 	const userId = await getCurrentUserServer();
-	return await deleteJobApplicationUseCase(jobApplication, userId);
+	return await updateJobApplicationUseCase(jobApplication, userId);
 };
