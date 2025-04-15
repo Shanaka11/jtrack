@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button } from '../ui/button';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import GetStartedButton from '@/features/auth/components/GetStartedButton';
 
 const Hero = () => {
 	return (
-		<section className='h-[calc(100dvh-48px)] grid place-items-center'>
+		<section className='min-h-[calc(100dvh-48px)] grid place-items-center snap-center px-4 py-20'>
 			<div className='container px-4 md:px-6'>
 				<div className='grid gap-6 lg:grid-cols-[1fr_600px] lg:gap-12'>
 					<div className='flex flex-col justify-center space-y-6'>
@@ -21,10 +22,15 @@ const Hero = () => {
 						</div>
 
 						<div className='flex flex-col gap-3 min-[400px]:flex-row'>
-							<Button className='bg-cyan-600 hover:bg-cyan-700 text-white gap-2 h-12 px-6 text-base'>
-								Get Started Free
-								<ArrowRight className='h-4 w-4' />
-							</Button>
+							<GetStartedButton>
+								<Button
+									className='bg-cyan-600 hover:bg-cyan-700 text-white gap-2 h-12 px-6 text-base'
+									type='submit'
+								>
+									Get Started Free
+									<ArrowRight className='h-4 w-4' />
+								</Button>
+							</GetStartedButton>
 							<Button
 								variant='outline'
 								className='h-12 px-6 text-base border-cyan-200 dark:border-cyan-800'
