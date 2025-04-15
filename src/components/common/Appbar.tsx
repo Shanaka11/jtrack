@@ -1,6 +1,7 @@
 import { auth } from '@/features/auth/auth';
 import SignedInMenu from '@/features/auth/components/SignedInMenu';
 import SignInButonServer from '@/features/auth/components/SignInButtonServer';
+import NewJobApplicationButton from '@/features/jobs/components/jobApplication/NewJobApplicationButton';
 import Link from 'next/link';
 import React from 'react';
 
@@ -13,7 +14,10 @@ const Appbar = async () => {
 				<span className='text-xl'>J</span>Track
 			</Link>
 			{session?.user ? (
-				<SignedInMenu user={session.user} />
+				<div className='flex gap-2'>
+					<NewJobApplicationButton />
+					<SignedInMenu user={session.user} />
+				</div>
 			) : (
 				<SignInButonServer />
 			)}

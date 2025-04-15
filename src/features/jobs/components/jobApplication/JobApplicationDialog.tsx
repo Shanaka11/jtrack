@@ -13,12 +13,14 @@ type JobApplicationDialogProps = {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 	jobApplication?: JobApplicationDto;
+	redirectOnSuccess?: boolean;
 };
 
 const JobApplicationDialog = ({
 	open,
 	onOpenChange,
 	jobApplication,
+	redirectOnSuccess,
 }: JobApplicationDialogProps) => {
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
@@ -32,6 +34,7 @@ const JobApplicationDialog = ({
 					<NewJobApplicationForm
 						jobApplication={jobApplication}
 						handleSuccess={() => onOpenChange(false)}
+						redirectOnSuccess={redirectOnSuccess}
 					/>
 				</div>
 			</DialogContent>
