@@ -4,9 +4,13 @@ import Google from 'next-auth/providers/google';
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	providers: [Google],
 	callbacks: {
-		jwt({ token, user }) {
-			if (user) {
-				token.id = user.id;
+		async signIn({ user, account }) {
+			if (account?.providerAccountId) user.id = account.providerAccountId;
+			return true;
+		},
+		jwt({ token, account }) {
+			if (account) {
+				token.id = account.providerAccountId;
 			}
 			return token;
 		},

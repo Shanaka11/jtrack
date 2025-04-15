@@ -119,7 +119,7 @@ const JobApplicationList = ({
 				{jobApplications.map((application) => (
 					<li
 						key={application.id}
-						className='grid grid-cols-[auto_1fr_auto] items-center gap-4 p-4 rounded-lg border hover:bg-slate-50 dark:border-gray-800 dark:hover:bg-gray-800/50 transition-colors cursor-pointer group'
+						className='grid grid-cols-[auto_1fr_auto] items-center gap-4 p-4 rounded-lg border hover:bg-slate-50 dark:border-gray-800 dark:hover:bg-gray-800/50 transition-colors cursor-pointer group col-span-2 md:col-span-1'
 					>
 						<div
 							className={`h-12 w-12 rounded-md ${JobApplicationBackgroundColorSelector(
