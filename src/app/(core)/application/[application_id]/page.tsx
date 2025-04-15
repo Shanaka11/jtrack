@@ -19,10 +19,7 @@ import FTooltip from '@/components/common/FTooltip';
 import DeleteJobApplicationButton from '@/features/jobs/components/jobApplication/DeleteJobApplicationButton';
 import EditJobApplicationButton from '@/features/jobs/components/jobApplication/EditJobApplicationButton';
 
-const breadCrumbs = [
-	{ label: 'Dashboard', href: '/dashboard' },
-	{ label: 'Application', href: '/application' },
-];
+const breadCrumbs = [{ label: 'Applications', href: '/dashboard' }];
 
 const page = async ({
 	params,
@@ -38,7 +35,7 @@ const page = async ({
 		throw new Error(jobApplicationResponse.message);
 
 	return (
-		<div className='flex flex-col h-full'>
+		<div className='flex flex-col h-full min-h-[calc(100dvh-48px)]'>
 			{/* Header */}
 			<PageHeader
 				title={`${jobApplicationResponse.data.jobTitle} - ${jobApplicationResponse.data.company}`}
