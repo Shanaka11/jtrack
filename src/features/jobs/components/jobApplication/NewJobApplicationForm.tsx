@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
+	JobApplicationDto,
 	JobApplicationFormSchema,
 	jobApplicationFormSchema,
 } from '../../models/jobApplication';
@@ -22,23 +23,28 @@ import { createJobApplicationAction } from '../../actions/jobApplication/createJ
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import FormDatePicker from '@/components/common/FormDatePicker';
+import { updateJobApplicationAction } from '../../actions/jobApplication/updateJobApplicationAction';
 
 type NewJobApplicationFormProps = {
 	redirectOnSuccess?: boolean;
 	handleSuccess?: () => void;
+	jobApplication?: JobApplicationDto;
 };
 
 const NewJobApplicationForm = ({
 	redirectOnSuccess,
 	handleSuccess,
+	jobApplication,
 }: NewJobApplicationFormProps) => {
 	const form = useForm<JobApplicationFormSchema>({
 		resolver: zodResolver(jobApplicationFormSchema),
 		defaultValues: {
-			company: '',
-			jobTitle: '',
-			link: '',
-			dateApplied: new Date(),
+			company: jobApplication?.company || '',
+			jobTitle: jobApplication?.jobTitle || '',
+			link: jobApplication?.link || '',
+			dateApplied: jobApplication?.dateApplied
+				? new Date(jobApplication.dateApplied)
+				: new Date(),
 		},
 	});
 
@@ -46,21 +52,57 @@ const NewJobApplicationForm = ({
 
 	const [isLoading, setIsLoading] = useState(false);
 
+	useEffect(() => {
+		if (jobApplication) {
+			form.reset({
+				company: jobApplication.company || '',
+				jobTitle: jobApplication.jobTitle || '',
+				link: jobApplication.link || '',
+				dateApplied: jobApplication.dateApplied
+					? new Date(jobApplication.dateApplied)
+					: new Date(),
+			});
+		}
+	}, [jobApplication, form]);
+
+	const createJobApplication = async (values: JobApplicationFormSchema) => {
+		const createdJobAplicationRespone = await createJobApplicationAction(
+			values
+		);
+
+		if (createdJobAplicationRespone.status === 'error') {
+			toast.error(createdJobAplicationRespone.message);
+			return;
+		}
+		// form.reset();
+		toast.success('Job application created successfully');
+		if (redirectOnSuccess) {
+			router.push(`/application/${createdJobAplicationRespone.data.id}`);
+		}
+	};
+
+	const updateJpobApplication = async (value: JobApplicationFormSchema) => {
+		if (jobApplication === undefined) return;
+
+		const updatedJobApplicationResponse = await updateJobApplicationAction({
+			...jobApplication,
+			...value,
+		});
+		if (updatedJobApplicationResponse.status === 'error') {
+			toast.error(updatedJobApplicationResponse.message);
+			return;
+		}
+		toast.success('Job application updated successfully');
+		router.refresh();
+	};
+
 	const onSubmit = async (values: JobApplicationFormSchema) => {
 		try {
 			setIsLoading(true);
-			const createdJobAplicationRespone = await createJobApplicationAction(
-				values
-			);
-
-			if (createdJobAplicationRespone.status === 'error') {
-				toast.error(createdJobAplicationRespone.message);
-				return;
-			}
-			// form.reset();
-			toast.success('Job application created successfully');
-			if (redirectOnSuccess) {
-				router.push(`/application/${createdJobAplicationRespone.data.id}`);
+			if (jobApplication === undefined) {
+				await createJobApplication(values);
+			} else {
+				await updateJpobApplication(values);
 			}
 			if (handleSuccess) {
 				handleSuccess();
@@ -78,7 +120,7 @@ const NewJobApplicationForm = ({
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className='grid grid-cols-2 gap-2 items-baseline md:grid-rows-[90px_120px_40px] w-lg'
+				className='grid grid-cols-2 gap-x-2 items-baseline gap-y-6'
 			>
 				<FormField
 					control={form.control}
@@ -110,8 +152,8 @@ const NewJobApplicationForm = ({
 					control={form.control}
 					name='dateApplied'
 					render={({ field }) => (
-						<FormItem className='flex flex-col col-span-2 md:col-span-1'>
-							<FormLabel>Date of birth</FormLabel>
+						<FormItem className='flex flex-col col-span-2'>
+							<FormLabel>Date Applied</FormLabel>
 							<FormDatePicker value={field.value} onChange={field.onChange} />
 							<FormMessage />
 						</FormItem>
@@ -121,7 +163,7 @@ const NewJobApplicationForm = ({
 					control={form.control}
 					name='link'
 					render={({ field }) => (
-						<FormItem className='col-span-2 md:col-span-1'>
+						<FormItem className='col-span-2'>
 							<FormLabel>Link</FormLabel>
 							<FormControl>
 								<Input placeholder='https://' {...field} />

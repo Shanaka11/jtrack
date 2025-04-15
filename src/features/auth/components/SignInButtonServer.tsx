@@ -1,7 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { signIn } from '@/features/auth/auth';
 
-const SignInButonServer = async () => {
+type SignInButonServerProps = {
+	children?: React.ReactNode;
+};
+
+const SignInButonServer = async ({ children }: SignInButonServerProps) => {
 	return (
 		<form
 			action={async () => {
@@ -9,7 +13,7 @@ const SignInButonServer = async () => {
 				await signIn('google', { redirectTo: '/dashboard' });
 			}}
 		>
-			<Button type='submit'>Signin with Google</Button>
+			{children ? children : <Button type='submit'>Signin with Google</Button>}
 		</form>
 	);
 };

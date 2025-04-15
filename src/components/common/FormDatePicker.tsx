@@ -20,7 +20,7 @@ const FormDatePicker = ({ value, onChange }: FormDatePickerProps) => {
 					<Button
 						variant={'outline'}
 						className={cn(
-							'w-[240px] pl-3 text-left font-normal',
+							'pl-3 text-left font-normal',
 							!value && 'text-muted-foreground'
 						)}
 					>

@@ -3,8 +3,7 @@ import PageHeader from '@/components/common/PageHeader';
 import React from 'react';
 
 const breadCrumbs = [
-	{ label: 'Dashboard', href: '/dashboard' },
-	{ label: 'Applications', href: '/application' },
+	{ label: 'Applications', href: '/dashboard' },
 	{ label: 'New Applications', active: true },
 ];
 
@@ -14,7 +13,7 @@ const layout = ({
 	children: React.ReactNode;
 }>) => {
 	return (
-		<div className='flex flex-col h-full'>
+		<div className='flex flex-col h-full min-h-[calc(100dvh-48px)]'>
 			{/* Header */}
 			<PageHeader title='New Application' breadCrumbs={breadCrumbs} />
 			<ActionArea>{children}</ActionArea>

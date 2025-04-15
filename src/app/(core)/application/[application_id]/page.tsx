@@ -14,14 +14,12 @@ import React from 'react';
 import StatusChangeButtonsServer from '@/features/jobs/components/jobApplication/StatusChangeButtons';
 import FavoriteButton from '@/features/jobs/components/jobApplication/FavoriteButton';
 import Link from 'next/link';
-import { Edit3Icon, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import FTooltip from '@/components/common/FTooltip';
 import DeleteJobApplicationButton from '@/features/jobs/components/jobApplication/DeleteJobApplicationButton';
+import EditJobApplicationButton from '@/features/jobs/components/jobApplication/EditJobApplicationButton';
 
-const breadCrumbs = [
-	{ label: 'Dashboard', href: '/dashboard' },
-	{ label: 'Application', href: '/application' },
-];
+const breadCrumbs = [{ label: 'Applications', href: '/dashboard' }];
 
 const page = async ({
 	params,
@@ -37,7 +35,7 @@ const page = async ({
 		throw new Error(jobApplicationResponse.message);
 
 	return (
-		<div className='flex flex-col h-full'>
+		<div className='flex flex-col h-full min-h-[calc(100dvh-48px)]'>
 			{/* Header */}
 			<PageHeader
 				title={`${jobApplicationResponse.data.jobTitle} - ${jobApplicationResponse.data.company}`}
@@ -62,12 +60,9 @@ const page = async ({
 							</Link>
 						</FTooltip>
 					)}
-					<FTooltip text='Edit Application'>
-						<Edit3Icon
-							strokeWidth={1}
-							className='hover:scale-120 transition-all duration-300 cursor-pointer stroke-blue-400'
-						></Edit3Icon>
-					</FTooltip>
+					<EditJobApplicationButton
+						jobApplication={jobApplicationResponse.data}
+					/>
 					<DeleteJobApplicationButton
 						jobApplication={jobApplicationResponse.data}
 					/>

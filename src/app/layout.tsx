@@ -27,10 +27,10 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[48px_1fr] h-dvh`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[48px_1fr] h-dvh bg-slate-50`}
 			>
 				<Appbar />
-				<main className='px-4 h-full'>{children}</main>
+				<main className='h-full'>{children}</main>
 				<Toaster richColors />
 			</body>
 		</html>
