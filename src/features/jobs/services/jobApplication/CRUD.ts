@@ -5,7 +5,7 @@ import {
 	JobApplicationDto,
 	jobApplicationTable,
 } from '../../models/jobApplication';
-import { eq } from 'drizzle-orm';
+import { eq, desc } from 'drizzle-orm';
 
 export const createJobApplicationService = async (
 	jobApplication: InsertJobApplicationDto,
@@ -23,6 +23,8 @@ export const getJobApplicationsService = async (
 ) => {
 	const query = connection.select().from(jobApplicationTable).$dynamic();
 
+	console.log('filterString', filterString);
+
 	if (filterString) {
 		//@ts-expect-error types not defined
 		const filter = generateDrizzleFilter(jobApplicationTable, filterString);
@@ -32,7 +34,7 @@ export const getJobApplicationsService = async (
 		}
 	}
 
-	return await query;
+	return await query.orderBy(desc(jobApplicationTable.updatedAt));
 };
 
 export const updateJobApplicationService = async (

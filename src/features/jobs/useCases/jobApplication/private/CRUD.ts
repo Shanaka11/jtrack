@@ -34,9 +34,10 @@ export const createJobApplicationUseCase_ = async (
 
 export const getJobApplicationUseCase_ = async (
 	connection: PostgresJsDatabase<Record<string, never>>,
-	userId: string,
+	userId: JobApplicationDto['user'] | null,
 	filterString?: string
 ) => {
+	if (userId === null) throw new Error('User not found');
 	if (filterString) {
 		return await getJobApplicationsService(
 			connection,

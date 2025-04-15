@@ -28,7 +28,7 @@ const DeleteJobApplicationButton = ({
 			}
 			toast.success('Job Application deleted');
 			// riderect to application
-			router.push('/application');
+			router.push('/dashboard');
 		} catch (e: unknown) {
 			if (e instanceof Error) {
 				toast.error(e.message);

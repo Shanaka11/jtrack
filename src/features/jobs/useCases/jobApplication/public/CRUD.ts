@@ -3,6 +3,7 @@ import {
 	createJobApplicationUseCase_,
 	deleteJobApplicationUseCase_,
 	getJobApplicationByIdUseCase_,
+	getJobApplicationUseCase_,
 	updateJobApplicationUseCase_,
 } from '../private/CRUD';
 import {
@@ -29,6 +30,22 @@ export const createJobApplicationUseCase = async (
 	}
 };
 
+export const getJobApplicationsUseCase = async (
+	userId: JobApplicationDto['user'] | null,
+	filterString?: string
+) => {
+	try {
+		const jobApplications = await db.transaction(async (tx) => {
+			return getJobApplicationUseCase_(tx, userId, filterString);
+		});
+		return sendSuccessResponse<JobApplicationDto[]>(jobApplications);
+	} catch (e: unknown) {
+		if (e instanceof Error) {
+			return sendErrorResponse<JobApplicationDto[]>(e.message);
+		}
+		return sendErrorResponse<JobApplicationDto[]>('An error occurred');
+	}
+};
 export const getJobApplicationByIdUseCase = async (
 	id: JobApplicationDto['id'],
 	userId: JobApplicationDto['user'] | null
