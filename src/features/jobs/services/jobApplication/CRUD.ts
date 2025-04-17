@@ -23,8 +23,6 @@ export const getJobApplicationsService = async (
 ) => {
 	const query = connection.select().from(jobApplicationTable).$dynamic();
 
-	console.log('filterString', filterString);
-
 	if (filterString) {
 		//@ts-expect-error types not defined
 		const filter = generateDrizzleFilter(jobApplicationTable, filterString);
