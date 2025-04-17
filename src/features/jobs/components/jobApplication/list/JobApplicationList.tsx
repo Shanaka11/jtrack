@@ -13,6 +13,7 @@ import {
 } from '@/features/jobs/statemachines/jobApplicationStatusStateMachine';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import SearchByCompany from './SearchByCompany';
 
 type JobApplicationListProps = {
 	jobApplications: JobApplicationDto[];
@@ -96,8 +97,8 @@ const JobApplicationList = ({
 	};
 
 	return (
-		<div>
-			<div className='flex items-center gap-2 justify-center mb-4 flex-wrap'>
+		<div className='flex flex-col gap-4'>
+			<div className='flex items-center gap-2 justify-center flex-wrap'>
 				{jobApplicationStatusArray.map((status) => (
 					<div
 						key={status}
@@ -115,6 +116,7 @@ const JobApplicationList = ({
 					</div>
 				))}
 			</div>
+			<SearchByCompany searchString='' />
 			<ul className='grid grid-cols-2 gap-4'>
 				{jobApplications.map((application) => (
 					<li
